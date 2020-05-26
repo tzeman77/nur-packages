@@ -3,5 +3,6 @@
   #
   # my-module = ./my-module;
   runit = ./runit.nix;
+  zabbix-runit = ./zabbix-runit.nix;
 }
 
