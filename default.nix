@@ -15,5 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   guilt = pkgs.callPackage ./pkgs/guilt { };
+  hgeditor = pkgs.callPackage ./pkgs/hgeditor { };
 }
 
