@@ -15,6 +15,7 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   bglibs = pkgs.callPackage ./pkgs/bglibs { };
+  ccollect = pkgs.callPackage ./pkgs/ccollect { };
   cvm = pkgs.callPackage ./pkgs/cvm { inherit bglibs; };
   djbdns = pkgs.callPackage ./pkgs/djbdns { };
   fehqlibs = pkgs.callPackage ./pkgs/fehqlibs { };
