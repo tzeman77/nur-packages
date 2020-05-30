@@ -1,0 +1,20 @@
+--- vmailmgr-0.97.orig/authenticate/checkvpw.cc.orig	2002-11-20 16:54:49.000000000 +0100
++++ vmailmgr-0.97/authenticate/checkvpw.cc	2013-09-05 15:49:55.117393963 +0200
+@@ -105,7 +105,7 @@
+   return new auth_data(name, pass, stamp);
+ }
+ 
+-char* strcasestr(const char* haystack, const char* needle)
++char* __strcasestr(const char* haystack, const char* needle)
+ {
+   for(size_t hlength = strlen(haystack), nlength = strlen(needle);
+       hlength >= nlength; hlength--, haystack++)
+@@ -117,7 +117,7 @@
+ unsigned find_maildir(int argc, const char* args[])
+ {
+   for(int arg = 0; arg < argc; arg++) {
+-    if(strcasestr(args[arg], config->maildir_arg_str().c_str()))
++    if(__strcasestr(args[arg], config->maildir_arg_str().c_str()))
+       return arg;
+   }
+   return argc-1;

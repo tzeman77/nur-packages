@@ -1,0 +1,23 @@
+diff -ru vmailmgr-0.97.orig/lib/cdb++/datum.h vmailmgr-0.97/lib/cdb++/datum.h
+--- vmailmgr-0.97.orig/lib/cdb++/datum.h	2005-09-04 06:21:58.000000000 +0200
++++ vmailmgr-0.97/lib/cdb++/datum.h	2018-05-11 09:01:41.386453273 +0200
+@@ -2,6 +2,7 @@
+ #ifndef DATUM__H__
+ #define DATUM__H__
+ 
++#include <sys/types.h>
+ #include "fdbuf/fdbuf.h"
+ #include "mystring/mystring.h"
+ 
+diff -ru vmailmgr-0.97.orig/lib/fdbuf/fdobuf.h vmailmgr-0.97/lib/fdbuf/fdobuf.h
+--- vmailmgr-0.97.orig/lib/fdbuf/fdobuf.h	2005-09-04 06:24:03.000000000 +0200
++++ vmailmgr-0.97/lib/fdbuf/fdobuf.h	2018-05-11 09:02:19.939553603 +0200
+@@ -18,6 +18,8 @@
+ #ifndef FDBUF__FDOBUF__H__
+ #define FDBUF__FDOBUF__H__
+ 
++#include <sys/types.h>
++
+ class fdobuf : protected fdbuf
+ {
+ public:

@@ -27,5 +27,6 @@ rec {
     luaPackage = pkgs.lua5_1;
   };
   opendmarc = pkgs.callPackage ./pkgs/opendmarc { };
+  vmailmgr = pkgs.callPackage ./pkgs/vmailmgr { };
 }
 
