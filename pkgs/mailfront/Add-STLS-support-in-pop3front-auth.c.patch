@@ -1,0 +1,112 @@
+From e4eac1f395a13495245c16b2a9ffa1b933314199 Mon Sep 17 00:00:00 2001
+From: Giam Teck Choon <giamteckchoon@gmail.com>
+Date: Mon, 29 Apr 2013 23:05:18 +0800
+Subject: [PATCH 6/8] Add STLS support in pop3front-auth.c
+
+This is a port to pop3front-auth.c according to the patch at:
+http://www.suspectclass.com/sgifford/ucspi-tls/files/mailfront-0.96-ucspitls-0.1.patch
+
+Signed-off-by: Giam Teck Choon <giamteckchoon@gmail.com>
+---
+ pop3-capa.c      |  2 ++
+ pop3front-auth.c | 30 +++++++++++++++++++++++++++++-
+ 2 files changed, 31 insertions(+), 1 deletion(-)
+
+diff --git a/pop3-capa.c b/pop3-capa.c
+index 51a090c..11d8853 100644
+--- a/pop3-capa.c
++++ b/pop3-capa.c
+@@ -26,12 +26,14 @@
+ #include <iobuf/obuf.h>
+ #include <str/str.h>
+ #include <cvm/sasl.h>
++#include "ucspitls.h"
+ #include "pop3.h"
+ 
+ static const char caps[] =
+   "PIPELINING\r\n"
+   "TOP\r\n"
+   "UIDL\r\n"
++  "STLS\r\n"
+   "USER\r\n";
+ 
+ static str auth_resp;
+diff --git a/pop3front-auth.c b/pop3front-auth.c
+index 0548242..eeb531e 100644
+--- a/pop3front-auth.c
++++ b/pop3front-auth.c
+@@ -30,6 +30,7 @@
+ #include <str/iter.h>
+ #include <str/str.h>
+ #include <cvm/sasl.h>
++#include "ucspitls.h"
+ #include "pop3.h"
+ 
+ const char program[] = "pop3front-auth";
+@@ -48,6 +49,9 @@ static unsigned auth_max;
+ 
+ static struct sasl_auth saslauth = { .prefix = "+ " };
+ 
++static int tls_available = 0;
++static int auth_available = 1;
++
+ static void do_exec(void)
+ {
+   if (!cvm_setugid() || !cvm_setenv())
+@@ -60,6 +64,23 @@ static void do_exec(void)
+   _exit(1);
+ }
+ 
++static void cmd_stls(void)
++{
++  if (!tls_available) {
++    respond("-ERR STLS not available");
++    return;
++  }
++
++  respond("+OK starting TLS negotiation");
++  if (!ucspitls())
++    exit(1);
++
++  tls_available = 0;
++  auth_available = 1;
++  /* reset state */
++  str_truncate(&user, 0);
++}
++
+ static void cmd_auth_none(void)
+ {
+   static str auth_resp;
+@@ -108,7 +129,9 @@ static void cmd_user(const str* s)
+     respond("-ERR Too many USER commands issued");
+     exit(0);
+   }
+-  if (!str_copy(&user, s))
++  if (!auth_available)
++    respond("-ERR Authentication not allowed without SSL/TLS");
++  else if (!str_copy(&user, s))
+     respond(err_internal);
+   else
+     respond(ok);
+@@ -145,6 +168,7 @@ command commands[] = {
+   { "PASS", 0,             cmd_pass, "PASS XXXXXXXX" },
+   { "QUIT", cmd_quit,      0,        0 },
+   { "USER", 0,             cmd_user, 0 },
++  { "STLS", cmd_stls ,0,        0 },
+   { 0,      0,             0,        0 }
+ };
+ 
+@@ -162,6 +186,10 @@ int startup(int argc, char* argv[])
+     obuf_putsflush(&errbuf, usage);
+     return 0;
+   }
++  if (getenv("UCSPITLS"))
++    tls_available = 1;
++  if (getenv("AUTH_REQUIRES_TLS"))
++    auth_available = 0;
+   cvm = argv[1];
+   nextcmd = argv+2;
+   if (!sasl_auth_init(&saslauth)) {
+-- 
+1.8.3.3
+

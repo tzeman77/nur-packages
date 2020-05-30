@@ -1,0 +1,102 @@
+From a695968b4b54643864b3986cdfafee86dc6b9dbb Mon Sep 17 00:00:00 2001
+From: Giam Teck Choon <giamteckchoon@gmail.com>
+Date: Thu, 25 Apr 2013 19:46:34 +0800
+Subject: [PATCH 4/8] Add STARTTLS support in imapfront-auth.c
+
+This is a port to imapfront-auth.c according to the patch at:
+http://www.suspectclass.com/sgifford/ucspi-tls/files/mailfront-0.96-ucspitls-0.1.patch
+
+Signed-off-by: Giam Teck Choon <giamteckchoon@gmail.com>
+---
+ imapfront-auth.c | 33 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
+
+diff --git a/imapfront-auth.c b/imapfront-auth.c
+index 56b3671..5656cf5 100644
+--- a/imapfront-auth.c
++++ b/imapfront-auth.c
+@@ -32,6 +32,7 @@
+ #include <cvm/v2client.h>
+ #include <bglibs/iobuf.h>
+ #include <bglibs/str.h>
++#include "ucspitls.h"
+ 
+ const char program[] = "imapfront-auth";
+ const int msg_show_pid = 1;
+@@ -60,6 +61,9 @@ static int auth_max;
+ 
+ static struct sasl_auth saslauth = { .prefix = "+ " };
+ 
++static int tls_available = 0;
++static int auth_available = 1;
++
+ void log_start(const char* tagstr)
+ {
+   obuf_puts(&errbuf, program);
+@@ -233,6 +237,10 @@ void cmd_capability(void)
+ 
+   respond_start(NOTAG);
+   respond_str("CAPABILITY IMAP4rev1");
++  if (tls_available)
++    respond_str(" STARTTLS");
++  if (!auth_available)
++    respond_str(" LOGINDISABLED");
+   if (*capability != 0) {
+     respond_str(" ");
+     respond_str(capability);
+@@ -303,7 +311,9 @@ void do_exec(void)
+ void cmd_login(int argc, str* argv)
+ {
+   int cr;
+-  if (argc != 2)
++  if (!auth_available)
++    respond(0,"BAD LOGIN command disabled without SSL/TLS");
++  else if (argc != 2)
+     respond(0, "BAD LOGIN command requires exactly two arguments");
+   else {
+     if ((cr = cvm_authenticate_password(cvm, argv[0].s, domain,
+@@ -339,6 +349,22 @@ void cmd_authenticate(int argc, str* argv)
+       exit(0);
+ }
+ 
++void cmd_starttls(void)
++{
++  if (!tls_available) {
++    respond(0, "BAD STARTTLS not availale");
++    return;
++  }
++
++  respond(0,"OK starting TLS negotiation");
++  if (!ucspitls())
++    exit(1);
++
++  /* FIX - Reset state? */
++  tls_available = 0;
++  auth_available = 1;
++}
++
+ struct command
+ {
+   const char* name;
+@@ -352,6 +378,7 @@ struct command commands[] = {
+   { "LOGOUT",      cmd_logout,     0 },
+   { "LOGIN",       0, cmd_login },
+   { "AUTHENTICATE", 0, cmd_authenticate },
++  { "STARTTLS"   , cmd_starttls,   0 },
+   { 0, 0, 0 }
+ };
+ 
+@@ -414,6 +441,10 @@ extern void set_timeout(void);
+ 
+ int main(int argc, char* argv[])
+ {
++  if (getenv("UCSPITLS"))
++    tls_available = 1;
++  if (getenv("AUTH_REQUIRES_TLS"))
++    auth_available = 0;
+   set_timeout();
+   if (!startup(argc, argv)) return 0;
+   respond(NOTAG, "OK imapfront ready.");
+-- 
+1.8.3.3
+

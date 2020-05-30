@@ -18,5 +18,14 @@ rec {
   cvm = pkgs.callPackage ./pkgs/cvm { inherit bglibs; };
   guilt = pkgs.callPackage ./pkgs/guilt { };
   hgeditor = pkgs.callPackage ./pkgs/hgeditor { };
+  mailfront = pkgs.callPackage ./pkgs/mailfront { inherit bglibs cvm; };
+  mailfront-addons = pkgs.callPackage ./pkgs/mailfront/addons.nix {
+    inherit bglibs mailfront opendmarc;
+  };
+  mailfront-lua = pkgs.callPackage ./pkgs/mailfront {
+    inherit bglibs cvm;
+    luaPackage = pkgs.lua5_1;
+  };
+  opendmarc = pkgs.callPackage ./pkgs/opendmarc { };
 }
 
