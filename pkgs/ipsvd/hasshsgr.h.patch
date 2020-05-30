@@ -1,0 +1,14 @@
+diff -ru ipsvd-1.0.0.orig/src/Makefile ipsvd-1.0.0/src/Makefile
+--- ipsvd-1.0.0.orig/src/Makefile	2008-06-15 22:31:14.000000000 +0200
++++ ipsvd-1.0.0/src/Makefile	2013-10-03 17:10:31.826232203 +0200
+@@ -331,8 +331,8 @@
+ 
+ hasshsgr.h: chkshsgr choose compile hasshsgr.h1 hasshsgr.h2 load tryshsgr.c \
+ 	  warn-shsgr
+-	./chkshsgr || (cat warn-shsgr; exit 1)
+-	./choose clr tryshsgr hasshsgr.h1 hasshsgr.h2 >hasshsgr.h
++	cat hasshsgr.h1 > hasshsgr.h
++
+ 
+ haswaitp.h: choose compile haswaitp.h1 haswaitp.h2 load trywaitp.c
+ 	./choose cl trywaitp haswaitp.h1 haswaitp.h2 >haswaitp.h

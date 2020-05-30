@@ -19,6 +19,7 @@ rec {
   djbdns = pkgs.callPackage ./pkgs/djbdns { };
   guilt = pkgs.callPackage ./pkgs/guilt { };
   hgeditor = pkgs.callPackage ./pkgs/hgeditor { };
+  ipsvd = pkgs.callPackage ./pkgs/ipsvd { };
   mailfront = pkgs.callPackage ./pkgs/mailfront { inherit bglibs cvm; };
   mailfront-addons = pkgs.callPackage ./pkgs/mailfront/addons.nix {
     inherit bglibs mailfront opendmarc;
