@@ -17,6 +17,7 @@ rec {
   bglibs = pkgs.callPackage ./pkgs/bglibs { };
   cvm = pkgs.callPackage ./pkgs/cvm { inherit bglibs; };
   djbdns = pkgs.callPackage ./pkgs/djbdns { };
+  fehqlibs = pkgs.callPackage ./pkgs/fehqlibs { };
   guilt = pkgs.callPackage ./pkgs/guilt { };
   hgeditor = pkgs.callPackage ./pkgs/hgeditor { };
   ipsvd = pkgs.callPackage ./pkgs/ipsvd { };
