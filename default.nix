@@ -32,6 +32,7 @@ rec {
   };
   mess822 = pkgs.callPackage ./pkgs/mess822 { };
   opendmarc = pkgs.callPackage ./pkgs/opendmarc { };
+  pure-ftpd = pkgs.callPackage ./pkgs/pure-ftpd { };
   qmail = pkgs.callPackage ./pkgs/qmail { };
   ucspi-ipc = pkgs.callPackage ./pkgs/ucspi-ipc { };
   ucspi-ssl = pkgs.callPackage ./pkgs/ucspi-ssl { inherit fehqlibs; };
