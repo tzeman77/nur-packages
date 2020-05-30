@@ -1,0 +1,74 @@
+stika.net antispam
+
+diff -r 72430e923db2 qmail-smtpd.c
+--- a/qmail-smtpd.c	Thu Nov 01 16:46:06 2007 +0100
++++ b/qmail-smtpd.c	Thu Nov 01 16:54:59 2007 +0100
+@@ -31,6 +31,7 @@
+ #define BMCHECK_BMT 2
+ #define BMCHECK_BMTNR 3
+ #define BMCHECK_BHELO 4
++#define BMCHECK_GMF 5	// 20041202 tz - goodmailfrom functionality
+     
+ 
+ #define MAXHOPS 100
+@@ -108,6 +109,9 @@ int bmfok = 0;
+ int bmfok = 0;
+ stralloc bmf = {0};
+ 
++int gmfok = 0;
++stralloc gmf = {0};
++
+ int bmfnrok = 0;
+ stralloc bmfnr = {0};
+ 
+@@ -140,6 +144,9 @@ void setup()
+ 
+   bmfok = control_readfile(&bmf,"control/badmailfrom",0);
+   if (bmfok == -1) die_control();
++
++  gmfok = control_readfile(&gmf,"control/goodmailfrom",0);
++  if (gmfok == -1) die_control();
+ 
+   bmfnrok = control_readfile(&bmfnr,"control/badmailfromnorelay",0);
+   if (bmfnrok == -1) die_control();
+@@ -247,6 +254,8 @@ int bmcheck(which) int which;
+ 
+   if (which == BMCHECK_BMF) {
+     if (!stralloc_copy(&bmb,&bmf)) die_nomem();
++  } else if (which == BMCHECK_GMF) {		// 20041202 tz - goodmailfrom
++    if (!stralloc_copy(&bmb,&gmf)) die_nomem();
+   } else if (which == BMCHECK_BMFNR) {
+     if (!stralloc_copy(&bmb,&bmfnr)) die_nomem();
+   } else if (which == BMCHECK_BMT) {
+@@ -304,6 +313,7 @@ int flagbarfbhelo;
+ int flagbarfbhelo;
+ stralloc mailfrom = {0};
+ stralloc rcptto = {0};
++int senderallowed = 0;	/* 20021121 tz - our anti-spam */
+ 
+ void smtp_helo(arg) char *arg;
+ {
+@@ -327,6 +337,7 @@ void smtp_mail(arg) char *arg;
+   if (!addrparse(arg)) { err_syntax(); return; }
+   flagbarfbmf = 0; /* bmcheck is skipped for empty envelope senders */
+   if ((bmfok) && (addr.len != 1)) flagbarfbmf = bmcheck(BMCHECK_BMF);
++  if (flagbarfbmf && gmfok) flagbarfbmf = !bmcheck(BMCHECK_GMF);	// 20041202 tz - goodmailfrom
+   if ((!flagbarfbmf) && (bmfnrok) && (addr.len != 1) && (!relayclient)) {
+     flagbarfbmf = bmcheck(BMCHECK_BMFNR);
+   }
+@@ -334,6 +345,7 @@ void smtp_mail(arg) char *arg;
+   if (!stralloc_copys(&rcptto,"")) die_nomem();
+   if (!stralloc_copys(&mailfrom,addr.s)) die_nomem();
+   if (!stralloc_0(&mailfrom)) die_nomem();
++  senderallowed = addrallowed();			/* 20021121 tz - our anti-spam */
+   out("250 ok\r\n");
+ }
+ void smtp_rcpt(arg) char *arg; {
+@@ -377,6 +389,7 @@ void smtp_rcpt(arg) char *arg; {
+   }
+   else
+     if (!addrallowed()) { err_nogateway(); return; }
++  if (!(addrallowed() || senderallowed)) { err_nogateway(); return; }	/* 20021121 tz - our anti-spam */
+   if (!stralloc_cats(&rcptto,"T")) die_nomem();
+   if (!stralloc_cats(&rcptto,addr.s)) die_nomem();
+   if (!stralloc_0(&rcptto)) die_nomem();

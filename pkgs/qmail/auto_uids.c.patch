@@ -1,0 +1,14 @@
+diff -ru qmail-1.03.orig/Makefile qmail-1.03/Makefile
+--- /dev/null		1970-01-01 01:00:00.000000000 +0100
++++ qmail-1.03/auto_uids.c.dist	2011-06-05 10:29:16.425936277 +0100
+@@ -0,0 +1,10 @@
++int auto_uida = 7790;
++int auto_uidd = 7791;
++int auto_uidl = 7792;
++int auto_uido = 0;
++int auto_uidp = 7793;
++int auto_uidq = 7794;
++int auto_uidr = 7795;
++int auto_uids = 7796;
++int auto_gidq = 2107;
++int auto_gidn = 2108;

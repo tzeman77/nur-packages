@@ -1,0 +1,14 @@
+errno fix
+
+diff -r c045670f36e9 error.h
+--- a/error.h	Thu Nov 01 14:46:11 2007 +0100
++++ b/error.h	Thu Nov 01 15:02:39 2007 +0100
+@@ -1,7 +1,7 @@
+ #ifndef ERROR_H
+ #define ERROR_H
+ 
+-extern int errno;
++#include <errno.h>
+ 
+ extern int error_intr;
+ extern int error_nomem;

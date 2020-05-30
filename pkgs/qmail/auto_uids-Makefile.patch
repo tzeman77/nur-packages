@@ -1,0 +1,25 @@
+diff -ru qmail-1.03.orig/Makefile qmail-1.03/Makefile
+--- qmail-1.03.orig/Makefile	1998-06-15 12:53:16.000000000 +0200
++++ qmail-1.03/Makefile	2013-09-30 14:20:45.839183598 +0200
+@@ -110,19 +110,8 @@
+ compile auto_split.c
+ 	./compile auto_split.c
+ 
+-auto_uids.c: \
+-auto-uid auto-gid conf-users conf-groups
+-	( ./auto-uid auto_uida `head -1 conf-users` \
+-	&&./auto-uid auto_uidd `head -2 conf-users | tail -1` \
+-	&&./auto-uid auto_uidl `head -3 conf-users | tail -1` \
+-	&&./auto-uid auto_uido `head -4 conf-users | tail -1` \
+-	&&./auto-uid auto_uidp `head -5 conf-users | tail -1` \
+-	&&./auto-uid auto_uidq `head -6 conf-users | tail -1` \
+-	&&./auto-uid auto_uidr `head -7 conf-users | tail -1` \
+-	&&./auto-uid auto_uids `head -8 conf-users | tail -1` \
+-	&&./auto-gid auto_gidq `head -1 conf-groups` \
+-	&&./auto-gid auto_gidn `head -2 conf-groups | tail -1` \
+-	) > auto_uids.c.tmp && mv auto_uids.c.tmp auto_uids.c
++auto_uids.c:
++	mv auto_uids.c.dist auto_uids.c
+ 
+ auto_uids.o: \
+ compile auto_uids.c
