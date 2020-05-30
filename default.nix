@@ -31,6 +31,7 @@ rec {
   };
   opendmarc = pkgs.callPackage ./pkgs/opendmarc { };
   qmail = pkgs.callPackage ./pkgs/qmail { };
+  ucspi-ssl = pkgs.callPackage ./pkgs/ucspi-ssl { inherit fehqlibs; };
   vmailmgr = pkgs.callPackage ./pkgs/vmailmgr { };
 }
 
