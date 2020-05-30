@@ -3,7 +3,7 @@
 let
   pkg = "fehqlibs";
   homepage = "https://www.fehcom.de/ipnet/qlibs.html";
-  version = "13";
+  version = "14";
 
 in stdenv.mkDerivation rec {
 
@@ -11,7 +11,7 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.fehcom.de/ipnet/fehQlibs/fehQlibs-${version}.tgz";
-    sha256 = "1c2jf1c6p1ysr6wbgx5077c6c3xlkpyvvcsvfsgqhbmxkfiipfim";
+    sha256 = "0x7hawghz66rfhj4b46w8j0qr4kb7z4lrd70szy2d66cf80rm88y";
   };
 
   #buildInputs = [libtool which perl];
