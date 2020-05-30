@@ -14,6 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  bglibs = pkgs.callPackage ./pkgs/bglibs { };
   guilt = pkgs.callPackage ./pkgs/guilt { };
   hgeditor = pkgs.callPackage ./pkgs/hgeditor { };
 }
