@@ -29,6 +29,7 @@ rec {
     inherit bglibs cvm;
     luaPackage = pkgs.lua5_1;
   };
+  mess822 = pkgs.callPackage ./pkgs/mess822 { };
   opendmarc = pkgs.callPackage ./pkgs/opendmarc { };
   qmail = pkgs.callPackage ./pkgs/qmail { };
   ucspi-ipc = pkgs.callPackage ./pkgs/ucspi-ipc { };
