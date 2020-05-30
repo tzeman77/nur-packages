@@ -2,14 +2,14 @@
 
 let
   pkg = "ucspi-ssl";
-  ver = "0.10.11";
+  ver = "0.11.4";
   web = "https://www.fehcom.de/ipnet/ucspi-ssl";
 in stdenv.mkDerivation rec {
   name = "${pkg}-${ver}";
 
   src = fetchurl {
     url = "${web}/${pkg}-${ver}.tgz";
-    sha256 = "16bk19z6m9jd1ybr58iw0v9wrkr1dk1lnx2kjjnilqmwqic8kfgz";
+    sha256 = "0w6hn2r5ac547k7dmaplilda22z0ly8df5qxpkzykjqilwh8j05g";
   };
   sourceRoot = "host/superscript.com/net/${pkg}-${ver}";
 
