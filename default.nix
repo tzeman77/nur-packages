@@ -8,13 +8,14 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
   bglibs = pkgs.callPackage ./pkgs/bglibs { };
+  cvm = pkgs.callPackage ./pkgs/cvm { inherit bglibs; };
   guilt = pkgs.callPackage ./pkgs/guilt { };
   hgeditor = pkgs.callPackage ./pkgs/hgeditor { };
 }
