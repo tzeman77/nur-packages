@@ -6,14 +6,14 @@
 let
 
   pkg = "ccollect";
-  ver = "2.3";
+  ver = "2.9";
   web = https://nico.schottelius.org/software/ccollect;
 
 in stdenv.mkDerivation rec {
   name = "${pkg}-${ver}";
   src = fetchurl {
     url = "${web}/download/${pkg}-${ver}.tar.bz2";
-    sha256 = "04mx0l2rmfi6agi3iar70aq6cikwn73iy0imiqa4r33p6d15hq4g";
+    sha256 = "0gbbdwhjr5dcqqf34k3wl4gwb1mkkm8mm5mx5zz5hcyqyj24s5ja";
   };
 
   propagatedBuildInputs = [ openssh rsync ];
