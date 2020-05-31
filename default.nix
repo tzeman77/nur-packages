@@ -8,6 +8,7 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
+with pkgs;
 rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -32,6 +33,14 @@ rec {
   };
   mess822 = pkgs.callPackage ./pkgs/mess822 { };
   opendmarc = pkgs.callPackage ./pkgs/opendmarc { };
+  php53 = (pkgs.callPackage ./pkgs/php/5.3.nix {
+    stdenv = gcc6Stdenv;
+    openssl = openssl_1_0_2;
+    icu = icu59;
+    mysql = mysql57.override {
+      openssl = openssl_1_0_2;
+    };
+  }).php53;
   pure-ftpd = pkgs.callPackage ./pkgs/pure-ftpd { };
   qmail = pkgs.callPackage ./pkgs/qmail { };
   ucspi-ipc = pkgs.callPackage ./pkgs/ucspi-ipc { };
