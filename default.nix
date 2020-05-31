@@ -50,6 +50,9 @@ rec {
     };
   }).php56;
   pure-ftpd = pkgs.callPackage ./pkgs/pure-ftpd { };
+  pywhois = with python3.pkgs; pkgs.callPackage ./pkgs/pywhois {
+    inherit buildPythonPackage future;
+  };
   qmail = pkgs.callPackage ./pkgs/qmail { };
   qmail-autoresponder = pkgs.callPackage ./pkgs/qmail-autoresponder {
     inherit bglibs;
