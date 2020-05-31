@@ -1,14 +1,16 @@
-{ stdenv, fetchurl, buildPythonPackage, future }:
+{ stdenv, fetchFromGitHub, buildPythonPackage, future }:
 
 buildPythonPackage rec {
   pname = "pywhois"; # -${version}";
-  version = "2019-09-07";
+  version = "2020-01-25";
 
   doCheck = false; # fails to pass because it tries to run in home directory
 
-  src = fetchurl {
-    url = "https://github.com/richardpenman/pywhois/archive/c6b441a3e9ae7d66d34166ba801009f00f72291c.zip";
-    sha256 = "0yr7yp0hzdysaxrzky2f5nv0kngjxw4i5ynkmbygvhj6jh9skd0q";
+  src = fetchFromGitHub {
+    owner = "richardpenman";
+    repo = "pywhois";
+    rev = "b9cf01fccef9bc5bbfd7b2ae6d4d37699a70bf78";
+    sha256 = "0zjp2d1sqf5bi9s69afmjbm1z0w5mgkjxgji0nl5cbznpi7nq03w";
   };
 
   propagatedBuildInputs = [ future ];
