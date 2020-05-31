@@ -1,0 +1,12 @@
+diff -ru mariadb-5.5.62.orig/storage/tokudb/ft-index/portability/portability.cc mariadb-5.5.62/storage/tokudb/ft-index/portability/portability.cc
+--- mariadb-5.5.62.orig/storage/tokudb/ft-index/portability/portability.cc	2018-10-24 12:29:47.000000000 +0200
++++ mariadb-5.5.62/storage/tokudb/ft-index/portability/portability.cc	2020-05-31 14:04:20.842265333 +0200
+@@ -113,7 +113,7 @@
+ # include <sys/syscall.h>
+ #endif
+ #if defined(HAVE_SYS_SYSCTL_H)
+-# include <sys/sysctl.h>
++//# include <sys/sysctl.h>
+ #endif
+ #if defined(HAVE_PTHREAD_H)
+ # include <pthread.h>

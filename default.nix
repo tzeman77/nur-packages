@@ -31,6 +31,10 @@ rec {
     inherit bglibs cvm;
     luaPackage = pkgs.lua5_1;
   };
+  mariadb55 = pkgs.callPackage ./pkgs/mariadb/5.5.nix {
+    openssl = openssl_1_0_2;
+    stdenv = gcc8Stdenv;
+  };
   mess822 = pkgs.callPackage ./pkgs/mess822 { };
   opendmarc = pkgs.callPackage ./pkgs/opendmarc { };
   php53 = (pkgs.callPackage ./pkgs/php/5.3.nix {
