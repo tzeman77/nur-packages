@@ -57,5 +57,6 @@ rec {
   ucspi-ipc = pkgs.callPackage ./pkgs/ucspi-ipc { };
   ucspi-ssl = pkgs.callPackage ./pkgs/ucspi-ssl { inherit fehqlibs; };
   vmailmgr = pkgs.callPackage ./pkgs/vmailmgr { };
+  zabbix-scripts = pkgs.callPackage ./pkgs/zabbix-scripts { };
 }
 
