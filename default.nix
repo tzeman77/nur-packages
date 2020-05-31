@@ -51,6 +51,9 @@ rec {
   }).php56;
   pure-ftpd = pkgs.callPackage ./pkgs/pure-ftpd { };
   qmail = pkgs.callPackage ./pkgs/qmail { };
+  qmail-autoresponder = pkgs.callPackage ./pkgs/qmail-autoresponder {
+    inherit bglibs;
+  };
   ucspi-ipc = pkgs.callPackage ./pkgs/ucspi-ipc { };
   ucspi-ssl = pkgs.callPackage ./pkgs/ucspi-ssl { inherit fehqlibs; };
   vmailmgr = pkgs.callPackage ./pkgs/vmailmgr { };

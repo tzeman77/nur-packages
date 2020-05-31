@@ -1,0 +1,8 @@
+diff -ru qmail-autoresponder-0.98.orig/options.c qmail-autoresponder-0.98/options.c
+--- qmail-autoresponder-0.98.orig/options.c	2008-04-29 00:34:57.000000000 +0200
++++ qmail-autoresponder-0.98/options.c	2014-04-24 13:59:09.836871285 +0200
+@@ -1,4 +1,3 @@
+-#include <mysql/mysql.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <bglibs/str.h>
