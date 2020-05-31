@@ -41,6 +41,14 @@ rec {
       openssl = openssl_1_0_2;
     };
   }).php53;
+  php56 = (pkgs.callPackage ./pkgs/php/5.6.nix {
+    #stdenv = gcc6Stdenv;
+    openssl = openssl_1_0_2;
+    icu = icu59;
+    mysql = mysql57.override {
+      openssl = openssl_1_0_2;
+    };
+  }).php56;
   pure-ftpd = pkgs.callPackage ./pkgs/pure-ftpd { };
   qmail = pkgs.callPackage ./pkgs/qmail { };
   ucspi-ipc = pkgs.callPackage ./pkgs/ucspi-ipc { };
