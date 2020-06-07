@@ -23,6 +23,7 @@ rec {
   guilt = pkgs.callPackage ./pkgs/guilt { };
   hgeditor = pkgs.callPackage ./pkgs/hgeditor { };
   ipsvd = pkgs.callPackage ./pkgs/ipsvd { };
+  libspf2 = pkgs.callPackage ./pkgs/libspf2 { }; # backport to 19.03
   mailfront = pkgs.callPackage ./pkgs/mailfront { inherit bglibs cvm; };
   mailfront-addons = pkgs.callPackage ./pkgs/mailfront/addons.nix {
     inherit bglibs mailfront opendmarc;

@@ -3,6 +3,11 @@
 with lib;
 
 let
+  oneOf = ts:
+    let
+      head' = if ts == [] then throw "types.oneOf needs to get at least one type in its argument" else head ts;
+      tail' = tail ts;
+    in foldl' types.either head' tail';
 
   cfg = config.runit.phpfpm;
 

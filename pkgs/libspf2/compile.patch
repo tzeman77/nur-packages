@@ -1,0 +1,48 @@
+diff -ru libspf2-1.2.10.orig/src/spf_example/Makefile.in libspf2-1.2.10/src/spf_example/Makefile.in
+--- libspf2-1.2.10.orig/src/spf_example/Makefile.in	2018-04-10 12:39:12.663955618 +0200
++++ libspf2-1.2.10/src/spf_example/Makefile.in	2018-04-10 12:52:43.214355582 +0200
+@@ -36,7 +36,7 @@
+ POST_UNINSTALL = :
+ build_triplet = @build@
+ host_triplet = @host@
+-bin_PROGRAMS = spf_example$(EXEEXT) spf_example_static$(EXEEXT)
++bin_PROGRAMS = spf_example$(EXEEXT)
+ subdir = src/spf_example
+ DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+diff -ru libspf2-1.2.10.orig/src/spfd/Makefile.in libspf2-1.2.10/src/spfd/Makefile.in
+--- libspf2-1.2.10.orig/src/spfd/Makefile.in	2018-04-10 12:39:12.658955591 +0200
++++ libspf2-1.2.10/src/spfd/Makefile.in	2018-04-10 12:50:35.874651993 +0200
+@@ -36,7 +36,7 @@
+ POST_UNINSTALL = :
+ build_triplet = @build@
+ host_triplet = @host@
+-bin_PROGRAMS = spfd$(EXEEXT) spfd_static$(EXEEXT)
++bin_PROGRAMS = spfd$(EXEEXT)
+ subdir = src/spfd
+ DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+diff -ru libspf2-1.2.10.orig/src/spfquery/Makefile.in libspf2-1.2.10/src/spfquery/Makefile.in
+--- libspf2-1.2.10.orig/src/spfquery/Makefile.in	2018-04-10 12:39:12.661955607 +0200
++++ libspf2-1.2.10/src/spfquery/Makefile.in	2018-04-10 12:40:53.799503682 +0200
+@@ -36,7 +36,7 @@
+ POST_UNINSTALL = :
+ build_triplet = @build@
+ host_triplet = @host@
+-bin_PROGRAMS = spfquery$(EXEEXT) spfquery_static$(EXEEXT)
++bin_PROGRAMS = spfquery$(EXEEXT)
+ subdir = src/spfquery
+ DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+diff -ru libspf2-1.2.10.orig/src/spftest/Makefile.in libspf2-1.2.10/src/spftest/Makefile.in
+--- libspf2-1.2.10.orig/src/spftest/Makefile.in	2018-04-10 12:39:12.659955596 +0200
++++ libspf2-1.2.10/src/spftest/Makefile.in	2018-04-10 12:48:48.850073645 +0200
+@@ -36,7 +36,7 @@
+ POST_UNINSTALL = :
+ build_triplet = @build@
+ host_triplet = @host@
+-bin_PROGRAMS = spftest$(EXEEXT) spftest_static$(EXEEXT)
++bin_PROGRAMS = spftest$(EXEEXT)
+ subdir = src/spftest
+ DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
