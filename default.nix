@@ -65,6 +65,10 @@ rec {
   ucspi-ipc = pkgs.callPackage ./pkgs/ucspi-ipc { };
   ucspi-ssl = pkgs.callPackage ./pkgs/ucspi-ssl { inherit fehqlibs; };
   vmailmgr = pkgs.callPackage ./pkgs/vmailmgr { };
+  zabbix = pkgs.callPackage ./pkgs/zabbix/3.4.nix { };
+  zabbix34_mysql = recurseIntoAttrs (callPackage ./pkgs/zabbix/3.4.nix {
+    mysqlPackage = mysql57.client;
+  });
   zabbix-scripts = pkgs.callPackage ./pkgs/zabbix-scripts { };
 }
 
