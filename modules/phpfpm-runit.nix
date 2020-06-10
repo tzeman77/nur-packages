@@ -23,6 +23,8 @@ let
   mkPool = n: p: ''
     [${n}]
     listen = ${p.listen}
+    user = ${p.user}
+    group = ${p.group}
     ${concatStringsSep "\n" (mapAttrsToList (n: v: "${n} = ${toStr v}") p.settings)}
     ${concatStringsSep "\n" (mapAttrsToList (n: v: "env[${n}] = ${toStr v}") p.phpEnv)}
     ${optionalString (p.extraConfig != null) p.extraConfig}
