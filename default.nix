@@ -62,6 +62,9 @@ rec {
   qmail-autoresponder = pkgs.callPackage ./pkgs/qmail-autoresponder {
     inherit bglibs;
   };
+  qmail-queue-dkimsign = pkgs.callPackage ./pkgs/qmail-queue-dkimsign {
+    inherit qmail mess822;
+  };
   ucspi-ipc = pkgs.callPackage ./pkgs/ucspi-ipc { };
   ucspi-ssl = pkgs.callPackage ./pkgs/ucspi-ssl { inherit fehqlibs; };
   vmailmgr = pkgs.callPackage ./pkgs/vmailmgr { };
@@ -72,3 +75,4 @@ rec {
   zabbix-scripts = pkgs.callPackage ./pkgs/zabbix-scripts { };
 }
 
+# vim: et ts=2 sw=2 
