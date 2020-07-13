@@ -17,11 +17,17 @@ rec {
 
   bglibs = pkgs.callPackage ./pkgs/bglibs { };
   ccollect = pkgs.callPackage ./pkgs/ccollect { };
+  couchapp = with python2.pkgs; pkgs.callPackage ./pkgs/couchapp {
+    inherit buildPythonPackage fetchPypi restkit watchdog060;
+  };
   cvm = pkgs.callPackage ./pkgs/cvm { inherit bglibs; };
   djbdns = pkgs.callPackage ./pkgs/djbdns { };
   fehqlibs = pkgs.callPackage ./pkgs/fehqlibs { };
   guilt = pkgs.callPackage ./pkgs/guilt { };
   hgeditor = pkgs.callPackage ./pkgs/hgeditor { };
+  http-parser = with python2.pkgs; pkgs.callPackage ./pkgs/http-parser {
+    inherit buildPythonPackage fetchPypi;
+  };
   ipsvd = pkgs.callPackage ./pkgs/ipsvd { };
   libspf2 = pkgs.callPackage ./pkgs/libspf2 { }; # backport to 19.03
   mailfront = pkgs.callPackage ./pkgs/mailfront { inherit bglibs cvm; };
@@ -65,9 +71,18 @@ rec {
   qmail-queue-dkimsign = pkgs.callPackage ./pkgs/qmail-queue-dkimsign {
     inherit qmail mess822;
   };
+  restkit = with python2.pkgs; pkgs.callPackage ./pkgs/restkit {
+    inherit buildPythonPackage fetchPypi http-parser socketpool;
+  };
+  socketpool = with python2.pkgs; pkgs.callPackage ./pkgs/socketpool {
+    inherit buildPythonPackage fetchPypi;
+  };
   ucspi-ipc = pkgs.callPackage ./pkgs/ucspi-ipc { };
   ucspi-ssl = pkgs.callPackage ./pkgs/ucspi-ssl { inherit fehqlibs; };
   vmailmgr = pkgs.callPackage ./pkgs/vmailmgr { };
+  watchdog060 = with python2.pkgs; pkgs.callPackage ./pkgs/watchdog/0.6.0.nix {
+    inherit buildPythonPackage fetchPypi argh pathtools pyyaml;
+  };
   zabbix = pkgs.callPackage ./pkgs/zabbix/3.4.nix { };
   zabbix34_mysql = recurseIntoAttrs (callPackage ./pkgs/zabbix/3.4.nix {
     mysqlPackage = mysql57.client;
