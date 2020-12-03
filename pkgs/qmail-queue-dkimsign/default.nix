@@ -12,7 +12,7 @@ in pkgs.writers.writeBashBin "${pkg}" ''
 
     t=$(mktemp)
     cat > $t
-    dom=$(cat $t | ${from_field} | tr '[A-Z]' '[a-z]' | sed -ne 's/[^@]\+@\([a-z0-9\.]\+\).*/\1/p')
+    dom=$(${from_field} < $t | tr '[A-Z]' '[a-z]' | sed -ne 's/[^@]\+@\([a-z0-9\.]\+\).*/\1/p')
     rc=1
     signed=0
     env | egrep 'PLUGIN_|USER|DOMAIN' | sed -e "s/^/dkimsign[$$]: /" >&2
@@ -31,7 +31,7 @@ in pkgs.writers.writeBashBin "${pkg}" ''
     fi
 
     if [ $signed -eq 0 ]; then
-      cat $t | ${qmailqueue}
+      ${qmailqueue} < $t
       rc=$?
     fi
     rm -f $t
