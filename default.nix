@@ -60,6 +60,7 @@ rec {
       openssl = openssl_1_0_2;
     };
   }).php56;
+  phpMyAdmin = pkgs.callPackage ./pkgs/phpMyAdmin { };
   pure-ftpd = pkgs.callPackage ./pkgs/pure-ftpd { };
   pywhois = with python3.pkgs; pkgs.callPackage ./pkgs/pywhois {
     inherit buildPythonPackage future;
