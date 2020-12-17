@@ -53,12 +53,8 @@ rec {
     };
   }).php53;
   php56 = (pkgs.callPackage ./pkgs/php/5.6.nix {
-    #stdenv = gcc6Stdenv;
-    openssl = openssl_1_0_2;
     icu = icu59;
-    mysql = mysql57.override {
-      openssl = openssl_1_0_2;
-    };
+    mysql = mysql57;
   }).php56;
   phpMyAdmin = pkgs.callPackage ./pkgs/phpMyAdmin { };
   pure-ftpd = pkgs.callPackage ./pkgs/pure-ftpd { };

@@ -266,6 +266,8 @@ in {
     ldapSupport = false;
     postgresqlSupport = false;
     pdo_pgsqlSupport = false;
+    opensslSupport = false;
+    withSystemd = false;
   };
 
 }
