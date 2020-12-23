@@ -1,7 +1,7 @@
 { lib, stdenv, fetchurl, autoconf, automake, flex, bison
 , apacheHttpd, mysql, libxml2, readline, zlib, curl, gd, postgresql, gettext
 , openssl, pkgconfig, sqlite, config, libjpeg, libpng, freetype, libxslt
-, libmcrypt, bzip2, icu, libssh2, makeWrapper, uwimap
+, libmcrypt, bzip2, icu, openldap, libssh2, makeWrapper, uwimap
 , gdbm, gmp
 , pam }:
 
@@ -25,10 +25,12 @@ let
   , gmpSupport ? config.php.gmp or false
   , imapSupport ? config.php.imap or false
   , intlSupport ? config.php.intl or true
+  , ldapSupport ? config.php.ldap or false
   , libxml2Support ? config.php.libxml2 or true
   , mbstringSupport ? config.php.mbstring or true
   , mcryptSupport ? config.php.mcrypt or true
   , mhashSupport ? config.php.mhash or false
+  , mysqlndSupport ? config.php.mysqlnd or false
   , mysqlSupport ? config.php.mysql or true
   , mysqliSupport ? config.php.mysqli or false
   , opensslSupport ? config.php.openssl or true
@@ -49,6 +51,7 @@ let
   , xslSupport ? config.php.xsl or true
   , zipSupport ? config.php.zip or true
   , zlibSupport ? config.php.zlib or true
+  , patches ? []
 
   }:
 
@@ -59,6 +62,7 @@ let
 in stdenv.mkDerivation {
 
   inherit version;
+  inherit patches;
 
   name = "php-${version}";
 
@@ -68,6 +72,7 @@ in stdenv.mkDerivation {
     = [ flex bison pkgconfig ]
     ++ optional apxs2Support apacheHttpd
     ++ optionals curlSupport [curl openssl]
+    ++ optionals ldapSupport [ openldap openssl ]
     ++ optional zlibSupport zlib
     ++ optional libxml2Support libxml2
     ++ optional readlineSupport readline
@@ -96,7 +101,7 @@ in stdenv.mkDerivation {
     "--with-config-file-scan-dir=/etc"
   ]
   ++ optional apxs2Support "--with-apxs2=${apacheHttpd}/bin/apxs"
-  ++ optional calendarSuppport "--enable-calendar=shared"
+  ++ optional calendarSuppport "--enable-calendar" #=shared"
   ++ optionals curlSupport ["--with-curl=shared,${curl.dev}" "--with-curlwrappers"]
   ++ optional pcntlSupport "--enable-pcntl"
   ++ optional zlibSupport "--with-zlib=${zlib.dev}"
@@ -106,20 +111,22 @@ in stdenv.mkDerivation {
     #"--with-sqlite=shared,${sqlite.dev}"
     "--with-pdo-sqlite=shared,${sqlite.dev}"
   ]
-  ++ optional posixSupport "--enable-posix=shared"
+  ++ optional posixSupport "--enable-posix" #=shared"
   ++ optional postgresqlSupport "--with-pgsql=shared,${postgresql}"
   ++ optional pdo_pgsqlSupport "--with-pgsql=shared,${postgresql}"
-  ++ optional mysqlSupport "--with-mysql=shared,${mysql}"
-  ++ optional mysqliSupport "--with-mysqli=${mysql}/bin/mysql_config"
-  ++ optional pdo_mysqlSupport "--with-pdo-mysql=shared,${mysql}"
-  ++ optional bcmathSupport "--enable-bcmath=shared"
+  ++ optional mysqlSupport "--with-mysql=${mysql.connector-c}"
+  ++ optionals mysqliSupport [
+    "--with-mysqli=${if mysqlndSupport then "mysqlnd" else "${mysql.connector-c}/bin/mysql_config"}"
+  ]
+  ++ optional pdo_mysqlSupport "--with-pdo-mysql=${if mysqlndSupport then "mysqlnd" else mysql.connector-c}"
+  ++ optional bcmathSupport "--enable-bcmath"
   ++ optionals gdSupport [
     "--with-gd"
     "--with-freetype-dir=${freetype.dev}"
     "--with-png-dir=${libpng.dev}"
     "--with-jpeg-dir=${libjpeg.dev}"
   ]
-  ++ optional soapSupport "--enable-soap=shared"
+  ++ optional soapSupport "--enable-soap" #=shared"
   ++ optional socketsSupport "--enable-sockets"
   ++ optional opensslSupport "--with-openssl"
   ++ optional mbstringSupport "--enable-mbstring"
@@ -128,20 +135,26 @@ in stdenv.mkDerivation {
     "--with-imap=shared,${uwimap}"
     "--with-imap-ssl=shared"
   ]
+  ++ optionals ldapSupport [
+    "--with-ldap=/invalid/path"
+    "LDAP_DIR=${openldap.dev}"
+    "LDAP_INCDIR=${openldap.dev}/include"
+    "LDAP_LIBDIR=${openldap.out}/lib"
+  ]
   ++ optional intlSupport "--enable-intl"
   ++ optional exifSupport "--enable-exif"
-  ++ optional xslSupport "--with-xsl=shared,${libxslt.dev}"
-  ++ optional mcryptSupport "--with-mcrypt=shared,${libmcrypt'}"
-  ++ optional bz2Support "--with-bz2=shared,${bzip2.dev}"
+  ++ optional xslSupport "--with-xsl=${libxslt.dev}"
+  ++ optional mcryptSupport "--with-mcrypt=${libmcrypt'}"
+  ++ optional bz2Support "--with-bz2=${bzip2.dev}"
   ++ optional zipSupport "--enable-zip"
-  ++ optional ftpSupport "--enable-ftp=shared"
+  ++ optional ftpSupport "--enable-ftp" #=shared"
   ++ optional gdbmSupport "--with-gdbm=shared,${gdbm}"
   ++ optional gmpSupport "--with-gmp=shared,${gmp.dev}"
-  ++ optional mhashSupport "--with-mhash=shared"
-  ++ optional shmopSupport "--enable-shmop=shared"
+  ++ optional mhashSupport "--with-mhash" #=shared"
+  ++ optional shmopSupport "--enable-shmop" #==shared"
   ++ optional sysvmsgSupport "--enable-sysvmsg"
-  ++ optional sysvsemSupport "--enable-sysvsem=shared"
-  ++ optional sysvshmSupport "--enable-sysvsem=shared"
+  ++ optional sysvsemSupport "--enable-sysvsem" #=shared"
+  ++ optional sysvshmSupport "--enable-sysvshm" #=shared"
   ++ optional xmlrpcSupport "--with-xmlrpc=shared"
   ++ optional fpmSupport "--enable-fpm";
 
@@ -389,7 +402,6 @@ in stdenv.mkDerivation {
     platforms   = stdenv.lib.platforms.unix;
   };
 
-  patches = [ ./fix.patch ./5.3-freetype-dirs.patch ];
 
 };
 
@@ -397,5 +409,30 @@ in {
   php53 = generic {
     version = "5.3.29";
     sha256 = "1480pfp4391byqzmvdmbxkdkqwdzhdylj63sfzrcgadjf9lwzqf4";
+    patches = [ ./fix.patch ./5.3-freetype-dirs.patch ];
+  };
+  php54 = generic {
+    version = "5.4.45";
+    sha256 = "10k59j7zjx2mrldmgfvjrrcg2cslr2m68azslspcz5acanqjh3af";
+    patches = [ ./fix54.patch ];
+    bcmathSupport = true;
+    bz2Support = true;
+    calendarSuppport = true;
+    ftpSupport = true;
+    ldapSupport = true;
+    mcryptSupport = true;
+    mhashSupport = true;
+    mysqlndSupport = true;
+    mysqlSupport = true;
+    mysqliSupport = true;
+    pdo_mysqlSupport = true;
+    pdo_pgsqlSupport = false;
+    posixSupport = true;
+    postgresqlSupport = false;
+    shmopSupport = true;
+    soapSupport = true;
+    sysvsemSupport = true;
+    sysvshmSupport = true;
+    xslSupport = true;
   };
 }
