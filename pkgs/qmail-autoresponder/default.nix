@@ -2,14 +2,14 @@
 
 let
   pkg = "qmail-autoresponder";
-  ver = "0.98";
+  ver = "2.0";
   web = http://untroubled.org/qmail-autoresponder;
 in stdenv.mkDerivation rec {
   name = "${pkg}-${ver}";
 
   src = fetchurl {
     url = "${web}/archive/${pkg}-${ver}.tar.gz";
-    sha256 = "1ckwanysk8dvh3zh9kni9dbss0zjzrfnhvs3lz1sxzglkkck2ha0";
+    sha256 = "152kxz96binw480lf514wb0242xf0w91prx9ln4hbjjqjwqir0sv";
   };
 
   buildFlags = "qmail-autoresponder";
