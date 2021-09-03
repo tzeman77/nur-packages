@@ -95,6 +95,9 @@ rec {
     mysqlPackage = mysql57.client;
   });
   zabbix-scripts = pkgs.callPackage ./pkgs/zabbix-scripts { };
+  zoom-us = pkgs.callPackage ./pkgs/zoom-us {
+    alsa-lib = alsaLib;
+  };
 }
 
 # vim: et ts=2 sw=2 
