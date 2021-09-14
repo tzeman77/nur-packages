@@ -1,13 +1,12 @@
-diff -ru ucspi-ipc-0.67.orig/src/Makefile ucspi-ipc-0.67/src/Makefile
---- ucspi-ipc-0.67.orig/src/Makefile	2013-10-07 15:42:01.923987612 +0200
-+++ ucspi-ipc-0.67/src/Makefile	2013-10-07 15:43:44.569948650 +0200
-@@ -197,8 +197,7 @@
- 
- hasshsgr.h: choose compile tryshsgr.c hasshsgr.h1 hasshsgr.h2 chkshsgr \
+diff -ru src.orig/Makefile src/Makefile
+--- src.orig/Makefile	1970-01-01 01:00:01.000000000 +0100
++++ src/Makefile	2021-09-14 10:14:58.185046879 +0200
+@@ -444,7 +444,7 @@
+ hasshsgr.h2 \
+ chkshsgr \
  warn-shsgr
--	./chkshsgr || ( cat warn-shsgr; exit 1 )
--	./choose clr tryshsgr hasshsgr.h1 hasshsgr.h2 > hasshsgr.h
+-	sh makefile.build hasshsgr.h.build hasshsgr.h 
 +	cat hasshsgr.h1 > hasshsgr.h
  
- haswaitp.h: choose compile load trywaitp.c haswaitp.h1 haswaitp.h2
- 	./choose cl trywaitp haswaitp.h1 haswaitp.h2 >haswaitp.h
+ haswaitp.h: \
+ haswaitp.h.build \

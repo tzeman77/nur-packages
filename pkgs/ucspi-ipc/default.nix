@@ -1,17 +1,19 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchFromGitHub }:
 
 let
   pkg = "ucspi-ipc";
-  ver = "0.67";
-  web = http://www.superscript.com/ucspi-ipc;
+  ver = "0.70";
+  web = https://github.com/SuperScript/ucspi-ipc;
 in stdenv.mkDerivation rec {
   name = "${pkg}-${ver}";
 
-  src = fetchurl {
-    url = "${web}/${pkg}-${ver}.tar.gz";
-    sha256 = "12wy9l5aak3n5yxnyyasdh3gcn8nkca9gflbbjvpfwza9c6rf34m";
+  src = fetchFromGitHub {
+    owner = "SuperScript";
+    repo = pkg;
+    rev = "2efb8562506e16f39e3bd18d89ec9d92a991009f";
+    sha256 = "sha256:15b097vyjciinpkkkagpcfg0jy9hk30iljplhi625fs96z3znyhd";
   };
-  sourceRoot = "host/superscript.com/net/${pkg}-${ver}";
+  sourceRoot = "source/src";
 
   patches = [
     # Avoid need to have secondary groups for compilation
@@ -20,16 +22,18 @@ in stdenv.mkDerivation rec {
 
   configurePhase = ''
     for i in ipccat ipcconnect ipcdo ipcrun; do
-      substituteInPlace src/$i.sh --replace HOME/command/ $out/bin/
+      substituteInPlace $i.sh --replace '#HOME#/command/' $out/bin/
     done
   '';
 
-  buildPhase = "./package/compile base";
+  buildPhase = "make it";
 
   installPhase = ''
     # binaries
     mkdir -p $out/bin
-    cp command/* $out/bin/
+    for i in $(cat it\=d); do
+      [ -f $i ] && cp $i $out/bin/
+    done
   '';
 
   dontStrip = true; # diet does not need stripping
