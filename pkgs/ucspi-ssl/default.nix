@@ -2,14 +2,14 @@
 
 let
   pkg = "ucspi-ssl";
-  ver = "0.11.6a";
+  ver = "0.12.2";
   web = "https://www.fehcom.de/ipnet/ucspi-ssl";
 in stdenv.mkDerivation rec {
   name = "${pkg}-${ver}";
 
   src = fetchurl {
     url = "${web}/${pkg}-${ver}.tgz";
-    sha256 = "1sn4qiix9ig06kjdrm0f8saw19h9hxsqhwfjnwv0y6imxk7d9z77";
+    sha256 = "sha256:10wlhvd97bzkjxlsyd79ds96ja8lsnzd3igcfk97jw26ysyphz7w";
   };
   sourceRoot = "host/superscript.com/net/${pkg}-${ver}";
 
@@ -21,9 +21,6 @@ in stdenv.mkDerivation rec {
     echo > conf-ssl
     echo ${ucspi-tcp}/bin > conf-tcpbin
     echo $out > conf-home
-    substituteInPlace src/sslclient.c --replace 'log(WHO' 'logmsg(WHO,0,LOG'
-    substituteInPlace src/sslserver.c --replace 'log(WHO' 'logmsg(WHO,0,LOG'
-    substituteInPlace src/sslhandle.c --replace 'log(who' 'logmsg(who,0,LOG'
   '';
 
   buildPhase = "./package/compile base";
