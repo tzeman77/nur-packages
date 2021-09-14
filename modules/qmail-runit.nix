@@ -166,13 +166,14 @@ in
         group = "nofiles";
         home = "/var/qmail/alias";
         createHome = false;
+        isSystemUser = true;
       };
-      qmaild = { uid = uids.qmaild; group = "nofiles"; };
-      qmaill = { uid = uids.qmaill; group = "nofiles"; };
-      qmailp = { uid = uids.qmailp; group = "nofiles"; };
-      qmailq = { uid = uids.qmailq; group = "qmail"; };
-      qmailr = { uid = uids.qmailr; group = "qmail"; };
-      qmails = { uid = uids.qmails; group = "qmail"; };
+      qmaild = { uid = uids.qmaild; group = "nofiles"; isSystemUser = true; };
+      qmaill = { uid = uids.qmaill; group = "nofiles"; isSystemUser = true; };
+      qmailp = { uid = uids.qmailp; group = "nofiles"; isSystemUser = true; };
+      qmailq = { uid = uids.qmailq; group = "qmail"; isSystemUser = true; };
+      qmailr = { uid = uids.qmailr; group = "qmail"; isSystemUser = true; };
+      qmails = { uid = uids.qmails; group = "qmail"; isSystemUser = true; };
     };
 
     runit.services.qmail = {
