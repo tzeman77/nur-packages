@@ -1,17 +1,12 @@
 { stdenv, fetchurl, unzip }:
 
-let
-
-  version = "2018-12-11";
-
-
-in stdenv.mkDerivation {
-
-  name = "zabbix-scripts-${version}";
+stdenv.mkDerivation rec {
+  pname = "zabbix-scripts";
+  version = "2021-04-15";
 
   src = fetchMercurial {
     url = "https://hg.functionals.cz/zabbix-scripts";
-    rev = "1eada2e65e7a";
+    rev = "a0015fe2009a";
   };
 
   buildInputs = [ unzip ];
