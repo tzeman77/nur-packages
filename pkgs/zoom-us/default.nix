@@ -28,11 +28,11 @@
 }:
 
 let
-  version = "5.7.31792.0820";
+  version = "5.8.0.16";
   srcs = {
     x86_64-linux = fetchurl {
-      url = "https://zoom.us/client/${version}/zoom_x86_64.pkg.tar.xz";
-      sha256 = "16p8wn67hb6p9rn684bbpwz8w5knyqw9rv2nnw6cwg949qjv43lm";
+      url = "https://cdn.zoom.us/prod/${version}/zoom_x86_64.tar.xz";
+      sha256 = "sha256:1qdzv95gla14za1i2i1r794sflnlq8phsgcs2vpycphfbz57f6w7";
     };
   };
 
@@ -79,17 +79,12 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    mkdir $out
-    tar -C $out -xf $src
-    mv $out/usr/* $out/
+    mkdir -p $out/opt
+    tar -C $out/opt -xf $src
     runHook postInstall
   '';
 
   postFixup = ''
-    # Desktop File
-    substituteInPlace $out/share/applications/Zoom.desktop \
-        --replace "Exec=/usr/bin/zoom" "Exec=$out/bin/zoom"
-
     for i in zopen zoom ZoomLauncher; do
       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/opt/zoom/$i
     done
@@ -98,7 +93,6 @@ stdenv.mkDerivation rec {
     wrapProgram $out/opt/zoom/zoom \
       --prefix LD_LIBRARY_PATH ":" ${libs}
 
-    rm $out/bin/zoom
     # Zoom expects "zopen" executable (needed for web login) to be present in CWD. Or does it expect
     # everybody runs Zoom only after cd to Zoom package directory? Anyway, :facepalm:
     # Clear Qt paths to prevent tripping over "foreign" Qt resources.
