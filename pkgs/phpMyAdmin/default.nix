@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "phpMyAdmin";
-  version = "5.0.4";
+  version = "5.1.1";
 
   src = fetchurl {
     url = "https://files.phpmyadmin.net/phpMyAdmin/${version}/phpMyAdmin-${version}-all-languages.zip";
-    sha256 = "1pkpyspk6pp7xnh8y9j4a0va0367w8w1i4s98ap1gr6m62lvq2w3";
+    sha256 = "sha256:0k2ms0ckg6hakl598sjdgay1m767bl10a1sk38igrzgr44vdk9bq";
   };
 
   buildInputs = [ unzip ];

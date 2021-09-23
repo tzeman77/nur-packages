@@ -3,7 +3,7 @@
 let
   pkg = "fehqlibs";
   homepage = "https://www.fehcom.de/ipnet/qlibs.html";
-  version = "16";
+  version = "18";
 
 in stdenv.mkDerivation rec {
 
@@ -11,12 +11,8 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.fehcom.de/ipnet/fehQlibs/fehQlibs-${version}.tgz";
-    sha256 = "18dz0niz7flxgjyw4y14dzy1lz9xqh3id85drqwy2sgz5znqb80p";
+    sha256 = "131fbik1rpnpnrz3b2biw5066zkclkhqydl6y24mkn47hb5llcnd";
   };
-
-  #buildInputs = [libtool which perl];
-
-  #patches = [ ./bglibs2.patch ];
 
   configurePhase = ''
     echo "LIBDIR=$out/lib" >> conf-build

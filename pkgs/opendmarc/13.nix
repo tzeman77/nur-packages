@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "opendmarc";
-  version = "1.4.1.1";
+  version = "1.3.3";
 
   src = fetchFromGitHub {
     owner = "trusteddomainproject";
     repo = "opendmarc";
     rev = "rel-opendmarc-${builtins.replaceStrings [ "." ] [ "-" ] version}";
-    sha256 = "sha256:12id8zcnspv09ypx2m8i993a507d3gdz4mfrhj04k9hnmbbp74vf";
+    sha256 = "sha256-SQH85FLfVEEtYhR1+A1XxCDMiTjDgLQX6zifbLxCa5c=";
   };
 
   outputs = [ "bin" "dev" "out" "doc" ];

@@ -32,7 +32,8 @@ rec {
   libspf2 = pkgs.callPackage ./pkgs/libspf2 { }; # backport to 19.03
   mailfront = pkgs.callPackage ./pkgs/mailfront { inherit bglibs cvm; };
   mailfront-addons = pkgs.callPackage ./pkgs/mailfront/addons.nix {
-    inherit bglibs mailfront opendmarc;
+    inherit bglibs mailfront;
+    opendmarc = opendmarc13;
   };
   mailfront-lua = pkgs.callPackage ./pkgs/mailfront {
     inherit bglibs cvm;
@@ -44,6 +45,7 @@ rec {
   };
   mess822 = pkgs.callPackage ./pkgs/mess822 { };
   opendmarc = pkgs.callPackage ./pkgs/opendmarc { };
+  opendmarc13 = pkgs.callPackage ./pkgs/opendmarc/13.nix { };
   php53 = (pkgs.callPackage ./pkgs/php/5.3.nix {
     stdenv = gcc6Stdenv;
     openssl = openssl_1_0_2;
