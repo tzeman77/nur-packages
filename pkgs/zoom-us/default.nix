@@ -28,11 +28,11 @@
 }:
 
 let
-  version = "5.8.4.210";
+  version = "5.8.6.739";
   srcs = {
     x86_64-linux = fetchurl {
       url = "https://cdn.zoom.us/prod/${version}/zoom_x86_64.tar.xz";
-      sha256 = "sha256:0kml8mb00yc4pia81y5dv52cvxrfn1rbihv37134458shq33jdiq";
+      sha256 = "sha256:0irc01zlfzz59fg147l2q36jxhp4065r5mbg29nd78n6xipbdsks";
     };
   };
 
