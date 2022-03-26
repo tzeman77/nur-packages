@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub }:
 
 let
   pkg = "ucspi-ipc";
@@ -42,9 +42,9 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "Command-line tools for building local-domain client-server applications";
     homepage = web;
-    license = stdenv.lib.licenses.publicDomain.shortName;
-    platforms = stdenv.lib.platforms.linux;
-    maintainers = with stdenv.lib.maintainers; [ tzeman ];
+    license = lib.licenses.publicDomain.shortName;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ tzeman ];
   };
 }
 
