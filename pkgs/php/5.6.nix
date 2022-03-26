@@ -234,7 +234,7 @@ let
         inherit sha256;
       };
 
-      meta = with stdenv.lib; {
+      meta = with lib; {
         description = "An HTML-embedded scripting language";
         homepage = https://www.php.net/;
         license = licenses.php301;

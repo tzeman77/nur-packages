@@ -1,5 +1,5 @@
 {
-  fetchurl, stdenv, openssh, rsync,
+  lib, fetchurl, stdenv, openssh, rsync,
   asciidoc, libxml2, docbook_xml_dtd_45, libxslt, docbook_xml_xslt # man pages
 }:
 
@@ -41,7 +41,7 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "(pseudo) incremental backup with different exclude lists using hardlinks and rsync";
     homepage = web;
-    license = stdenv.lib.licenses.gpl2;
+    license = lib.licenses.gpl2;
   };
 }
 

@@ -1,4 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage, restkit, watchdog060 }:
+{ lib, stdenv, fetchPypi, buildPythonPackage, restkit, watchdog060 }:
 
 buildPythonPackage rec {
   pname = "Couchapp";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ restkit watchdog060 ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "CouchApp is designed to structure standalone CouchDB application development for maximum application portability.";
     homepage = http://github.com/couchapp/couchapp;
   };

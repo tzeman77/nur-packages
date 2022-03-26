@@ -1,4 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage, http-parser }:
+{ lib, stdenv, fetchPypi, buildPythonPackage, http-parser }:
 
 buildPythonPackage rec {
   pname = "http-parser";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "HTTP request/response parser for Python";
     homepage = http://github.com/benoitc/http-parser;
   };

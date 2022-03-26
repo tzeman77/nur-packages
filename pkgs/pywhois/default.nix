@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, buildPythonPackage, future }:
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, future }:
 
 buildPythonPackage rec {
   pname = "pywhois"; # -${version}";
@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ future ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Python WHOIS library";
     homepage = https://github.com/richardpenman/pywhois;
   };

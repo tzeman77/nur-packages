@@ -23,7 +23,7 @@ in stdenv.mkDerivation rec {
     homepage = homepage;
     license = lib.licenses.gpl2;
     #platforms = stdenv.lib.platforms.gnu;
-    maintainers = with stdenv.lib.maintainers; [ tzeman ];
+    maintainers = with lib.maintainers; [ tzeman ];
   };
 }
 

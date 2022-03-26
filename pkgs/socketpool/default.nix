@@ -1,4 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage }:
+{ lib, stdenv, fetchPypi, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "socketpool";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Socketpool - a simple Python socket pool.";
     homepage = http://github.com/benoitc/socketpool;
   };

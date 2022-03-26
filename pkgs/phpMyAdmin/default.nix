@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip, writeText }:
+{ lib, stdenv, fetchurl, unzip, writeText }:
 
 stdenv.mkDerivation rec {
   pname = "phpMyAdmin";
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 EOF
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Web based MySQL administration tool";
     homepage = "https://www.phpmyadmin.net";
     license = licenses.gpl2;

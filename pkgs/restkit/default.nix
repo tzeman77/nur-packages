@@ -1,4 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage, http-parser, socketpool }:
+{ lib, stdenv, fetchPypi, buildPythonPackage, http-parser, socketpool }:
 
 buildPythonPackage rec {
   pname = "restkit"; # -${version}";
@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ http-parser socketpool ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "HTTP resource kit for Python";
     homepage = http://benoitc.github.io/restkit;
   };
