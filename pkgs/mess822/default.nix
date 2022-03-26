@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, groff }:
+{ lib, stdenv, fetchurl, groff }:
 
 let
   pkg = "mess822";
@@ -37,9 +37,9 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "Library for parsing internet mail messages";
     homepage = http://cr.yp.to/mess822.html;
-    license = stdenv.lib.licenses.publicDomain.shortName;
-    platforms = stdenv.lib.platforms.linux;
-    maintainers = with stdenv.lib.maintainers; [ tzeman ];
+    license = lib.licenses.publicDomain.shortName;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ tzeman ];
   };
 }
 

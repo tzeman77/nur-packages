@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, groff }:
+{ lib, stdenv, fetchurl, groff }:
 
 let
   pkg = "qmail";
@@ -120,9 +120,9 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "A secure, reliable, efficient, SMTP/POP3 server.";
     homepage = "${web}/${pkg}.html";
-    license = stdenv.lib.licenses.publicDomain.shortName;
-    platforms = stdenv.lib.platforms.gnu;
-    maintainers = with stdenv.lib.maintainers; [ tzeman ];
+    license = lib.licenses.publicDomain.shortName;
+    platforms = lib.platforms.gnu;
+    maintainers = with lib.maintainers; [ tzeman ];
   };
 }
 

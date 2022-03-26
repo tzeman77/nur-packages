@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 
 let
   pkg = "ipsvd";
@@ -36,9 +36,9 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "internet protocol service daemons";
     homepage = web;
-    license = stdenv.lib.licenses.publicDomain.shortName;
-    platforms = stdenv.lib.platforms.linux;
-    maintainers = with stdenv.lib.maintainers; [ tzeman ];
+    license = lib.licenses.publicDomain.shortName;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ tzeman ];
   };
 }
 

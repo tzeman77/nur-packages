@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "libspf2-${version}";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-variadic-macros.patch ./compile.patch ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Sender Policy Framework record checking library";
     homepage = http://www.libspf2.org/;
     license = licenses.bsd2;

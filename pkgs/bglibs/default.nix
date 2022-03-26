@@ -28,9 +28,9 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "One stop library package";
     homepage = homepage;
-    license = stdenv.lib.licenses.lgpl21Plus.fullName;
-    platforms = stdenv.lib.platforms.gnu;
-    maintainers = with stdenv.lib.maintainers; [ tzeman ];
+    license = lib.licenses.lgpl21Plus.fullName;
+    platforms = lib.platforms.gnu;
+    maintainers = with lib.maintainers; [ tzeman ];
   };
 
 }

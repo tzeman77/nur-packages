@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 
 let
   pkg = "vmailmgr";
@@ -21,7 +21,7 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "Virtual e-mail domains/users management programs";
     homepage = homepage;
-    license = stdenv.lib.licenses.gpl2;
+    license = lib.licenses.gpl2;
     #platforms = stdenv.lib.platforms.gnu;
     maintainers = with stdenv.lib.maintainers; [ tzeman ];
   };

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, openssl
+{ lib, stdenv, fetchurl, openssl
 , mysqlSupport ? false, mysql ? null
 }:
 
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ openssl ]
-    ++ stdenv.lib.optional mysqlSupport mysql;
+    ++ lib.optional mysqlSupport mysql;
 
   configureFlags = ''
     --with-ftpwho --with-quotas
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     ${if mysqlSupport then "--with-mysql=${mysql}" else ""}
   '';
  
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A free, secure, production-quality and standard-conformant FTP server";
     homepage = https://www.pureftpd.org;
     license = licenses.isc; # with some parts covered by BSD3(?)

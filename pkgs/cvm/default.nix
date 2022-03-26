@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, libtool, bglibs }:
+{ lib, stdenv, fetchurl, libtool, bglibs }:
 
 let
   pkg = "cvm";
@@ -33,9 +33,9 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "Credential Validation Modules";
     homepage = homepage;
-    license = stdenv.lib.licenses.gpl2Plus.fullName;
-    platforms = stdenv.lib.platforms.gnu;
-    maintainers = with stdenv.lib.maintainers; [ tzeman ];
+    license = lib.licenses.gpl2Plus.fullName;
+    platforms = lib.platforms.gnu;
+    maintainers = with lib.maintainers; [ tzeman ];
   };
 
 }

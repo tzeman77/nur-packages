@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, openssl_1_1, ucspi-tcp, fehqlibs }:
+{ lib, stdenv, fetchurl, openssl_1_1, ucspi-tcp, fehqlibs }:
 
 let
   pkg = "ucspi-ssl";
@@ -43,9 +43,9 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "TLS encryption for Client/Server IPv6/IPv4 communication";
     homepage = "${web}.html";
-    license = stdenv.lib.licenses.publicDomain.shortName;
-    platforms = stdenv.lib.platforms.linux;
-    maintainers = with stdenv.lib.maintainers; [ tzeman ];
+    license = lib.licenses.publicDomain.shortName;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ tzeman ];
   };
 }
 

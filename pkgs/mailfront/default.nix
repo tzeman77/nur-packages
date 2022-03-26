@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, bglibs, cvm, luaPackage ? null }:
+{ lib, stdenv, fetchurl, bglibs, cvm, luaPackage ? null }:
 
 let
   pkg = "mailfront";
@@ -22,7 +22,7 @@ in stdenv.mkDerivation rec {
     ./Add-STLS-support-in-pop3front-auth.c.patch
   ];
 
-  buildInputs = [cvm bglibs] ++ stdenv.lib.optional (luaPackage != null) luaPackage;
+  buildInputs = [cvm bglibs] ++ lib.optional (luaPackage != null) luaPackage;
   inherit bglibs;
 
   configurePhase = ''
@@ -35,7 +35,7 @@ in stdenv.mkDerivation rec {
   '';
 
   postBuild = ''
-  ${stdenv.lib.optionalString (luaPackage != null) ''
+  ${lib.optionalString (luaPackage != null) ''
     make lua
   ''}
   '';
@@ -43,9 +43,9 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "Mail server network protocol front-ends";
     homepage = "${web}/${pkg}";
-    license = stdenv.lib.licenses.gpl2Plus.fullName;
-    platforms = stdenv.lib.platforms.gnu;
-    maintainers = with stdenv.lib.maintainers; [ tzeman ];
+    license = lib.licenses.gpl2Plus.fullName;
+    platforms = lib.platforms.gnu;
+    maintainers = with lib.maintainers; [ tzeman ];
   };
 
 }

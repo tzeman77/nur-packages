@@ -27,9 +27,9 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "State-of-the-art C routines provided as easy-to-use library for Internet services.";
     homepage = homepage;
-    license = stdenv.lib.licenses.publicDomain.fullName;
-    platforms = stdenv.lib.platforms.gnu;
-    maintainers = with stdenv.lib.maintainers; [ tzeman ];
+    license = lib.licenses.publicDomain.fullName;
+    platforms = lib.platforms.gnu;
+    maintainers = with lib.maintainers; [ tzeman ];
   };
 
 }

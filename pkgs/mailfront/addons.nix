@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, bglibs, mailfront, openssl, opendkim, libspf2
+{ lib, stdenv, fetchFromGitHub, bglibs, mailfront, openssl, opendkim, libspf2
 , opendmarc }:
 
 let
@@ -38,8 +38,8 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "Plugins for mailfront SMTP daemon";
     homepage = web;
-    platforms = stdenv.lib.platforms.gnu;
-    maintainers = with stdenv.lib.maintainers; [ tzeman ];
+    platforms = lib.platforms.gnu;
+    maintainers = with lib.maintainers; [ tzeman ];
   };
 
 }

@@ -244,8 +244,10 @@ in
     (mkIf (a_cfg.enable || p_cfg.enable || s_cfg.enable) {
       users.extraUsers.zabbix = {
         uid = config.ids.uids.zabbix;
+        group = "zabbix";
         description = "Zabbix daemon user";
       };
+      users.extraGroups.zabbix.gid = config.ids.gids.zabbix;
     })
 
     (mkIf a_cfg.enable {
