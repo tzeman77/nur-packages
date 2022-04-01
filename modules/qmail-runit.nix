@@ -148,6 +148,7 @@ in
 
     security.wrappers = {
       "qmail-queue" = {
+        setuid = true;
         source = "${pkg}/bin/qmail-queue";
         owner = "qmailq";
         group = "qmail";
