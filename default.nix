@@ -65,7 +65,7 @@ rec {
     };
   }).php54;
   php56 = (pkgs.callPackage ./pkgs/php/5.6.nix {
-    icu = icu59;
+    icu = icu60;
     mysql = mysql57;
   }).php56;
   phpMyAdmin = pkgs.callPackage ./pkgs/phpMyAdmin { };
