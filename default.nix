@@ -74,10 +74,6 @@ rec {
   watchdog060 = with python2.pkgs; pkgs.callPackage ./pkgs/watchdog/0.6.0.nix {
     inherit buildPythonPackage fetchPypi argh pathtools pyyaml;
   };
-  zabbix = pkgs.callPackage ./pkgs/zabbix/3.4.nix { };
-  zabbix34_mysql = recurseIntoAttrs (callPackage ./pkgs/zabbix/3.4.nix {
-    mysqlPackage = mysql57.client;
-  });
   zabbix-scripts = pkgs.callPackage ./pkgs/zabbix-scripts { };
   zoom-us = pkgs.callPackage ./pkgs/zoom-us {
     alsa-lib = alsaLib;
