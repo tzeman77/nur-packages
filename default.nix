@@ -46,24 +46,6 @@ rec {
   mess822 = pkgs.callPackage ./pkgs/mess822 { };
   opendmarc = pkgs.callPackage ./pkgs/opendmarc { };
   opendmarc13 = pkgs.callPackage ./pkgs/opendmarc/13.nix { };
-  php53 = (pkgs.callPackage ./pkgs/php/5.3.nix {
-    stdenv = gcc6Stdenv;
-    openssl = openssl_1_0_2;
-    icu = icu59;
-    mysql = mysql57.override {
-      openssl = openssl_1_0_2;
-    };
-  }).php53;
-  php54 = (pkgs.callPackage ./pkgs/php/5.3.nix {
-    openldap = openldap.override {
-      openssl = openssl_1_0_2;
-    };
-    openssl = openssl_1_0_2;
-    icu = icu59;
-    mysql = mysql57.override {
-      openssl = openssl_1_0_2;
-    };
-  }).php54;
   php56 = (pkgs.callPackage ./pkgs/php/5.6.nix {
     icu = icu60;
     mysql = mysql57;
