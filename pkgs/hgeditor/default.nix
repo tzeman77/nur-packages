@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "hgeditor";
-  version = "5.4";
+  version = "6.2.2";
 
   src = builtins.fetchurl {
     url = "https://www.mercurial-scm.org/repo/hg/raw-file/${version}/hgeditor";
