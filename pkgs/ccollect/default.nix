@@ -1,6 +1,6 @@
 {
   lib, fetchurl, stdenv, openssh, rsync,
-  asciidoc, libxml2, docbook_xml_dtd_45, libxslt, docbook_xml_xslt # man pages
+  asciidoc, libxml2, docbook_xml_dtd_45, libxslt, docbook_xsl # man pages
 }:
 
 let
@@ -17,7 +17,7 @@ in stdenv.mkDerivation rec {
   };
 
   propagatedBuildInputs = [ openssh rsync ];
-  buildInputs = [ asciidoc libxml2 docbook_xml_dtd_45 libxslt docbook_xml_xslt ];
+  buildInputs = [ asciidoc libxml2 docbook_xml_dtd_45 libxslt docbook_xsl ];
 
   installPhase = ''
     make install-script install-man prefix=$out
