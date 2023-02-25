@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl }:
+{ lib, stdenv, fetchurl, libxcrypt }:
 
 let
   pkg = "vmailmgr";
@@ -11,6 +11,8 @@ in stdenv.mkDerivation rec {
     url = "${homepage}/current/${pkg}-${ver}.tar.gz";
     sha256 = "1hlrqcs5ddynh8v43sj4p6ri3gsyxqy45s0jr5sbz4crn8yqfrk2";
   };
+
+  buildInputs = [ libxcrypt ];
 
   patches = [ ./compile.patch ./checkvpw.patch ]; # compile (strcasestr redefined)
 

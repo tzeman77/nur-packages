@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, libtool, bglibs }:
+{ lib, stdenv, fetchurl, libtool, bglibs, libxcrypt }:
 
 let
   pkg = "cvm";
@@ -12,7 +12,7 @@ in stdenv.mkDerivation rec {
     sha256 = "0iqc1akzzidazps9a1jg5l41vssvi0k572z2awafjancccfpbrw2";
   };
 
-  buildInputs = [libtool bglibs];
+  buildInputs = [libtool bglibs libxcrypt];
 
   inherit bglibs;
 
