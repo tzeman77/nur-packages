@@ -5,6 +5,7 @@
 , libxslt, libmcrypt, bzip2, icu, openldap, cyrus_sasl, libmhash, unixODBC
 , uwimap, pam, gmp, apacheHttpd, libiconv, systemd, libsodium, html-tidy, libargon2
 , libzip, valgrind
+, libxcrypt
 }:
 
 with lib;
@@ -76,7 +77,7 @@ let
       enableParallelBuilding = true;
 
       nativeBuildInputs = [ autoconf bison libtool pkgconfig re2c ];
-      buildInputs = [ ]
+      buildInputs = [ libxcrypt ]
         ++ optional (versionOlder version "7.3") pcre
         ++ optional (versionAtLeast version "7.3") pcre2
         ++ optional withSystemd systemd
