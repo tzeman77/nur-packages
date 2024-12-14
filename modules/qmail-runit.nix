@@ -28,6 +28,10 @@ let
       ${concatStringsSep "\n" (mapAttrsToList (n: v:
         "echo -n '${v}' | sed -e 's/^  \+//' > $out/control/${n}"
       ) cfg.control)}
+      mkdir -p $out/control/notlshosts
+      ${concatStringsSep "\n" (map (v:
+	"touch $out/control/notlshosts/${v}"
+      ) cfg.notlshosts)}
     '';
   };
 
@@ -107,6 +111,14 @@ in
           instructions for foo go into ~alias/.qmail-foo; delivery instructions
           for user-foo go into ~user/.qmail-foo. See dot-qmail(5) for the full
           story or doc/INSTALL.alias in qmail installaction directory.
+        '';
+      };
+
+      notlshosts = mkOption {
+        default = [];
+        description = ''
+	  List of fully-qualified domain name of the servers for which
+	  qmail-remote will not try TLS. See qmail-remote(8).
         '';
       };
 

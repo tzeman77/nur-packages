@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, groff }:
+{ lib, stdenv, fetchurl, groff, openssl }:
 
 let
   pkg = "qmail";
@@ -42,11 +42,12 @@ in stdenv.mkDerivation rec {
     ./qmail-smtpd.spam.patch
     ./qmail-103-oversize-dns.patch
     ./qmail-1.03.isoc.patch
+    ./notqmail-1.08-tls-20231230-qmail-remote.patch
   ];
 
   buildFlags = "it man";
 
-  buildInputs = [groff queue-fix];
+  buildInputs = [groff queue-fix openssl];
 
   installPhase = ''
     # dirs
