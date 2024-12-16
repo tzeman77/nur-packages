@@ -336,7 +336,7 @@ in
       # -O      --altlog        <opt>
       altlog = mkOption {
         default = null;
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         example = "clf:/var/log/pureftpd.log";
         description = ''
           <code>format:log file</code>: Record all file transfers into a
@@ -380,7 +380,7 @@ in
       # -p      --passiveportrange      <opt>
       passiveportrange = mkOption {
         default = null;
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         example = "40000:50000";
         description = ''
           <code>first port:last port</code>: Use only ports in the range
@@ -395,7 +395,7 @@ in
       # -P      --forcepassiveip        <opt>
       forcepassiveip = mkOption {
         default = null;
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         description = ''
           <code>ip address or host name</code>: Force the specified IP address
           in reply to a PASV/EPSV/SPSV command. If the server is behind a
@@ -409,7 +409,7 @@ in
       # -q      --anonymousratio        <opt>
       anonymousratio = mkOption {
         default = null;
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         description = ''
           <code>upload ratio:download ratio</code>: Enable ratios for anonymous
           users.
@@ -419,7 +419,7 @@ in
       # -Q      --userratio     <opt>
       userratio = mkOption {
         default = null;
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         description = ''
           <code>upload ratio:download ratio</code>': Enable ratios for
           everybody (anonymous and non-anonymous). Members of the root (0,
@@ -475,7 +475,7 @@ in
       # -t      --anonymousbandwidth    <opt>
       anonymousbandwidth = mkOption {
         default = null;
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         description = ''
           Enable bandwidth limitation. <code>bandwidth</code> is specified in
           kilobytes/seconds. To set up separate upload/download bandwidth, the
@@ -486,7 +486,7 @@ in
       # -T      --userbandwidth <opt>
       userbandwidth = mkOption {
         default = null;
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         description = ''
           Enable bandwidth limitation. <code>bandwidth</code> is specified in
           kilobytes/seconds. To set up separate upload/download bandwidth, the
@@ -497,7 +497,7 @@ in
       # -U      --umask <opt>
       umask = mkOption {
         default = null;
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         description = ''
           <code>umask for files:umask for dirs</code>: Change the file creation
           mask.  The default is 133:022. If you want a new file uploaded by a
@@ -523,7 +523,7 @@ in
       # -V      --trustedip     <opt>
       trustedip = mkOption {
         default = null;
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         description = ''
           <code>ip address</code>: Allow non-anonymous FTP access only on this
           specific local IP address. All other IP addresses are only anonymous.
@@ -600,7 +600,7 @@ in
       # -J      --tlsciphersuite        <opt>
       tlsciphersuite = mkOption {
         default = null;
-        type = types.nullOr types.string;
+        type = types.nullOr types.str;
         example = "HIGH:MEDIUM:+TLSv1:!SSLv2:+SSLv3";
         description = ''
           <code>ciphers</code>: Sets the list of ciphers that will be accepted
