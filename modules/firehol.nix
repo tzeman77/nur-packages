@@ -47,8 +47,8 @@ in
     systemd.services.firehol = {
       description = "Firehol firewall";
       wantedBy = [ "network.target" ];
-      after = [ "network-interfaces.target" ];
-      path = with pkgs; [ gnugrep findutils gawk gnused procps gzip iproute iprange
+      #after = [ "network-interfaces.target" ];
+      path = with pkgs; [ gnugrep findutils gawk gnused procps gzip iproute2 iprange
         which iptables kmod  ];
 
       preStart = "mkdir -p /var/spool";
