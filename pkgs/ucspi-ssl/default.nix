@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, openssl_1_1, ucspi-tcp, fehqlibs }:
+{ lib, stdenv, fetchurl, openssl, ucspi-tcp, fehqlibs }:
 
 let
   pkg = "ucspi-ssl";
@@ -13,7 +13,7 @@ in stdenv.mkDerivation rec {
   };
   sourceRoot = "host/superscript.com/net/${pkg}-${ver}";
 
-  buildInputs = [openssl_1_1 fehqlibs];
+  buildInputs = [openssl fehqlibs];
 
   configurePhase = ''
     echo /etc/ssl/certs > conf-cadir
