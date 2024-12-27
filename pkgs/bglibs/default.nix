@@ -18,6 +18,8 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./bglibs2.patch ];
 
+  hardeningDisable = ["all"];
+
   configurePhase = ''
     echo $out/include > conf-include
     echo $out/lib > conf-lib
