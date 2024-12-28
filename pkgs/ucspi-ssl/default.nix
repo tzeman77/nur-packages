@@ -2,14 +2,14 @@
 
 let
   pkg = "ucspi-ssl";
-  ver = "0.12.2";
+  ver = "0.13.03";
   web = "https://www.fehcom.de/ipnet/ucspi-ssl";
 in stdenv.mkDerivation rec {
   name = "${pkg}-${ver}";
 
   src = fetchurl {
     url = "${web}/${pkg}-${ver}.tgz";
-    sha256 = "sha256:10wlhvd97bzkjxlsyd79ds96ja8lsnzd3igcfk97jw26ysyphz7w";
+    sha256 = "SxNnZ2NLLWXeGQzCGha6p1N/efqZlqD1+ocOIzbvfm4=";
   };
   sourceRoot = "host/superscript.com/net/${pkg}-${ver}";
 
@@ -18,7 +18,6 @@ in stdenv.mkDerivation rec {
   configurePhase = ''
     echo /etc/ssl/certs > conf-cadir
     echo /etc/ssl/pem/dh1024.pem > conf-dhfile
-    echo > conf-ssl
     echo ${ucspi-tcp}/bin > conf-tcpbin
     echo $out > conf-home
   '';
