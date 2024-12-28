@@ -3,7 +3,7 @@
 let
   pkg = "fehqlibs";
   homepage = "https://www.fehcom.de/ipnet/qlibs.html";
-  version = "18";
+  version = "26b";
 
 in stdenv.mkDerivation rec {
 
@@ -11,17 +11,19 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.fehcom.de/ipnet/fehQlibs/fehQlibs-${version}.tgz";
-    sha256 = "131fbik1rpnpnrz3b2biw5066zkclkhqydl6y24mkn47hb5llcnd";
+    sha256 = "wM4cfyFP2K0t4qb6WYDBFsGUvF1F69eHgfjaT3H4/nU=";
   };
 
+  sourceRoot = "fehQlibs-26/src";
+
   configurePhase = ''
-    echo "LIBDIR=$out/lib" >> conf-build
-    echo "HDRDIR=$out/include" >> conf-build
+    echo "LIBDIR=$out/lib" >> ../conf-build
+    echo "HDRDIR=$out/include" >> ../conf-build
   '';
 
   postInstall = ''
     mkdir -p $out/man/man3
-    cp man/* $out/man/man3/
+    cp ../man/* $out/man/man3/
   '';
 
   meta = {
