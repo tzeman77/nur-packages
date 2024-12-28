@@ -21,9 +21,14 @@ in stdenv.mkDerivation rec {
     echo "HDRDIR=$out/include" >> ../conf-build
   '';
 
+  buildPhase = ''
+    make CFLAGS="-I../include" default shared
+  '';
+
   postInstall = ''
     mkdir -p $out/man/man3
     cp ../man/* $out/man/man3/
+    cp *.so $out/lib
   '';
 
   meta = {
