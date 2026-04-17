@@ -15,6 +15,11 @@ in stdenv.mkDerivation rec {
   };
   sourceRoot = "source/src";
 
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=implicit-function-declaration"
+    "-Wno-error=incompatible-pointer-types"
+  ];
+
   patches = [
     # Avoid need to have secondary groups for compilation
     ./hasshsgr.h.patch
