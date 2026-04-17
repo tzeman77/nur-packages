@@ -24,6 +24,11 @@ stdenv.mkDerivation {
     ./dnscache-cname-handling.patch
   ];
 
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=implicit-function-declaration"
+    "-Wno-error=incompatible-pointer-types"
+  ];
+
   postPatch = ''
     echo gcc -O2 -include ${glibc.dev}/include/errno.h > conf-cc
     echo $out > conf-home
