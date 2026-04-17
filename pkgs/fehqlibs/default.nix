@@ -3,7 +3,7 @@
 let
   pkg = "fehqlibs";
   homepage = "https://www.fehcom.de/ipnet/qlibs.html";
-  version = "26b";
+  version = "31";
 
 in stdenv.mkDerivation rec {
 
@@ -11,10 +11,15 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.fehcom.de/ipnet/fehQlibs/fehQlibs-${version}.tgz";
-    sha256 = "wM4cfyFP2K0t4qb6WYDBFsGUvF1F69eHgfjaT3H4/nU=";
+    sha256 = "sha256-5g2j6mHUxbCHebgJmrcew1W5JaRNjrwEUuAuL2DMVwE=";
   };
 
-  sourceRoot = "fehQlibs-26/src";
+  sourceRoot = "fehQlibs-${version}/src";
+
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=incompatible-pointer-types"
+    "-I../include" 
+  ];
 
   configurePhase = ''
     echo "LIBDIR=$out/lib" >> ../conf-build
@@ -22,7 +27,7 @@ in stdenv.mkDerivation rec {
   '';
 
   buildPhase = ''
-    make CFLAGS="-I../include" default shared
+    make default shared
   '';
 
   postInstall = ''
