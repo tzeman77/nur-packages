@@ -16,6 +16,10 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./compile.patch ./checkvpw.patch ]; # compile (strcasestr redefined)
 
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=implicit-function-declaration"
+  ];
+
   preConfigure = ''
     sed -i -e "s@phpdir=.*\$@phpdir=\"$out/lib/php\"@" configure
   '';
