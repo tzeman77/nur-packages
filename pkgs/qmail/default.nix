@@ -16,6 +16,9 @@ in stdenv.mkDerivation rec {
     patches = [
       ./queue-fix-errno.patch
     ];
+    NIX_CFLAGS_COMPILE = [
+      "-Wno-error=implicit-function-declaration"
+    ];
     installPhase = ''
       mkdir -p $out/{bin,doc}
       cp queue-fix $out/bin/
@@ -43,6 +46,11 @@ in stdenv.mkDerivation rec {
     ./qmail-103-oversize-dns.patch
     ./qmail-1.03.isoc.patch
     ./notqmail-1.08-tls-20231230-qmail-remote.patch
+  ];
+
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=implicit-function-declaration"
+    "-Wno-error=implicit-int"
   ];
 
   buildFlags = "it man";
@@ -115,7 +123,7 @@ in stdenv.mkDerivation rec {
 
     # symlink queue-fix
     ln -s ${queue-fix}/bin/queue-fix $out/bin
-    ln -s ${queue-fix}/doc/README $out/doc/README.queue-fix
+    ln -s ${queue-fix}/share/doc/README $out/doc/README.queue-fix
   '';
 
   meta = {
