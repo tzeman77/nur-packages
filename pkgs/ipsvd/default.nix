@@ -2,21 +2,21 @@
 
 let
   pkg = "ipsvd";
-  ver = "1.0.0";
+  ver = "1.1.1";
   web = "http://smarden.org/ipsvd";
 in stdenv.mkDerivation rec {
   name = "${pkg}-${ver}";
 
   src = fetchurl {
     url = "${web}/${pkg}-${ver}.tar.gz";
-    sha256 = "1b8zs0vvvim6bn5wizx4lm6kw2s7pf2q6rapmc4mvjssr1dp4ypg";
+    sha256 = "sha256-kgTkrBQboQ4cf/rFhrT95EoLhk1GgA8bJjYCF346RHs=";
   };
 
   sourceRoot = "net/${pkg}-${ver}";
 
-  patches = [
-    # Avoid need to have secondary groups for compilation
-    ./hasshsgr.h.patch
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=implicit-function-declaration"
+    "-Wno-error=incompatible-pointer-types"
   ];
 
   buildPhase = "./package/compile";
