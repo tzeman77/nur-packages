@@ -18,6 +18,10 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./bglibs2.patch ];
 
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=implicit-function-declaration"
+  ];
+
   hardeningDisable = ["all"];
 
   configurePhase = ''
