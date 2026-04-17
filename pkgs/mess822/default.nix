@@ -18,6 +18,10 @@ in stdenv.mkDerivation rec {
     ./hier.patch
   ];
 
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=implicit-function-declaration"
+  ];
+
   configurePhase = ''
     echo $out > conf-home
     substituteInPlace hier.c --replace /etc $out/etc
