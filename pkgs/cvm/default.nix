@@ -19,13 +19,15 @@ in stdenv.mkDerivation rec {
   patches = [
     # fix missing main() - can't find in .a lib.
     ./link-main.patch
+    # fix dangling symlink for libcvm-client.a
+    ./insthier.patch
   ];
 
   configurePhase = ''
     echo $out/bin > conf-bin
     echo "gcc -W -Wall -Wshadow -O -g -I$bglibs/include" > conf-cc
     echo $out/include > conf-include
-    echo "gcc -g -L$bglibs/lib" > conf-ld
+    echo "gcc -g -L$bglibs/lib -lcrypt" > conf-ld
     echo $out/lib > conf-lib
     #echo $bglibs/lib/libvmailmgr.la > vmailmgr.lib
   '';

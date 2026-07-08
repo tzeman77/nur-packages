@@ -1,0 +1,9 @@
+diff -ru cvm-0.97.orig/INSTHIER cvm-0.97/INSTHIER
+--- cvm-0.97.orig/INSTHIER	2026-07-08 20:27:08.314848345 +0200
++++ cvm-0.97/INSTHIER	2026-07-08 20:27:14.508881707 +0200
+@@ -1,5 +1,4 @@
+ >lib
+-s:::::libcvm-client.a:libcvm-v2client.a
+ s:::::libcvm-client.la:libcvm-v2client.la
+ s:::::libcvm-client.so:libcvm-v2client.so
+ l:::755::libcvm-command.la
